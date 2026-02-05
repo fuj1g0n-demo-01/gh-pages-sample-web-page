@@ -16,6 +16,12 @@ GitHub Pages にデプロイされたモダンな Web アプリケーション�
 - **GitHub Actions** - CI/CD
 - **GitHub Pages** - ホスティング
 
+## Prerequisites
+
+本リポジトリに必要な依存関係（Node.js、pnpm など）はすべて [devbox](https://www.jetify.com/devbox/) で管理されています。
+
+devbox をインストールするには、[公式インストールガイド](https://www.jetify.com/docs/devbox/installing_devbox/)を参照してください。
+
 ## Development
 
 ```bash

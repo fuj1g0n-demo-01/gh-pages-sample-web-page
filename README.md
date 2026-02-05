@@ -4,7 +4,7 @@ GitHub Pages にデプロイされたモダンな Web アプリケーション�
 
 ## Demo
 
-**https://swse-demo-01.github.io/gh-pages-sample-web-page/**
+**https://reimagined-fiesta-o7ep3yl.pages.github.io/**
 
 ## Tech Stack
 

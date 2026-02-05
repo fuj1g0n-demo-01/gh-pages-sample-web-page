@@ -19,7 +19,7 @@
 
 ## 設定
 
-- **Base Path**: `/gh-pages-sample-web-page/`
+- **Base Path**: `/`（プライベートリポジトリ用）
 - **ディレクトリ構成**: flat（小規模向け）
 
 ## npm scripts

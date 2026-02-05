@@ -1,33 +1,149 @@
-import { useState } from "react";
-import viteLogo from "/vite.svg";
-import reactLogo from "./assets/react.svg";
-import "./App.css";
+import styles from "./App.module.css";
+
+// GitHub Logo SVG
+const GitHubLogo = () => (
+	<svg
+		className={styles.logo}
+		viewBox="0 0 98 96"
+		xmlns="http://www.w3.org/2000/svg"
+		role="img"
+		aria-labelledby="github-logo-title"
+	>
+		<title id="github-logo-title">GitHub</title>
+		<path
+			fillRule="evenodd"
+			clipRule="evenodd"
+			d="M48.854 0C21.839 0 0 22 0 49.217c0 21.756 13.993 40.172 33.405 46.69 2.427.49 3.316-1.059 3.316-2.362 0-1.141-.08-5.052-.08-9.127-13.59 2.934-16.42-5.867-16.42-5.867-2.184-5.704-5.42-7.17-5.42-7.17-4.448-3.015.324-3.015.324-3.015 4.934.326 7.523 5.052 7.523 5.052 4.367 7.496 11.404 5.378 14.235 4.074.404-3.178 1.699-5.378 3.074-6.6-10.839-1.141-22.243-5.378-22.243-24.283 0-5.378 1.94-9.778 5.014-13.2-.485-1.222-2.184-6.275.486-13.038 0 0 4.125-1.304 13.426 5.052a46.97 46.97 0 0 1 12.214-1.63c4.125 0 8.33.571 12.213 1.63 9.302-6.356 13.427-5.052 13.427-5.052 2.67 6.763.97 11.816.485 13.038 3.155 3.422 5.015 7.822 5.015 13.2 0 18.905-11.404 23.06-22.324 24.283 1.78 1.548 3.316 4.481 3.316 9.126 0 6.6-.08 11.897-.08 13.526 0 1.304.89 2.853 3.316 2.364 19.412-6.52 33.405-24.935 33.405-46.691C97.707 22 75.788 0 48.854 0z"
+			fill="currentColor"
+		/>
+	</svg>
+);
+
+// Microsoft Logo SVG
+const MicrosoftLogo = () => (
+	<svg
+		className={styles.logo}
+		viewBox="0 0 23 23"
+		xmlns="http://www.w3.org/2000/svg"
+		role="img"
+		aria-labelledby="microsoft-logo-title"
+	>
+		<title id="microsoft-logo-title">Microsoft</title>
+		<path fill="#f35325" d="M1 1h10v10H1z" />
+		<path fill="#81bc06" d="M12 1h10v10H12z" />
+		<path fill="#05a6f0" d="M1 12h10v10H1z" />
+		<path fill="#ffba08" d="M12 12h10v10H12z" />
+	</svg>
+);
+
+const features = [
+	{
+		icon: "⚡",
+		title: "Vite",
+		description: "次世代の高速ビルドツール。HMRで瞬時に変更を反映。",
+	},
+	{
+		icon: "⚛️",
+		title: "React 19",
+		description: "最新のReactで、モダンなUIを効率的に構築。",
+	},
+	{
+		icon: "📘",
+		title: "TypeScript",
+		description: "型安全なコードで、バグを未然に防止。",
+	},
+	{
+		icon: "🎨",
+		title: "CSS Modules",
+		description: "スコープ付きCSSで、スタイルの衝突を回避。",
+	},
+	{
+		icon: "🔧",
+		title: "Biome",
+		description: "高速なLinter/Formatterで、コード品質を維持。",
+	},
+	{
+		icon: "🚀",
+		title: "GitHub Pages",
+		description: "GitHub Actionsで自動デプロイ。",
+	},
+];
 
 function App() {
-	const [count, setCount] = useState(0);
-
 	return (
 		<>
-			<div>
-				<a href="https://vite.dev" target="_blank" rel="noopener">
-					<img src={viteLogo} className="logo" alt="Vite logo" />
-				</a>
-				<a href="https://react.dev" target="_blank" rel="noopener">
-					<img src={reactLogo} className="logo react" alt="React logo" />
-				</a>
-			</div>
-			<h1>Vite + React</h1>
-			<div className="card">
-				<button type="button" onClick={() => setCount((count) => count + 1)}>
-					count is {count}
-				</button>
-				<p>
-					Edit <code>src/App.tsx</code> and save to test HMR
+			<section className={styles.hero}>
+				<span className={styles.badge}>✨ GitHub Pages Demo</span>
+				<h1 className={styles.title}>Modern Web Stack</h1>
+				<p className={styles.subtitle}>
+					Vite + React + TypeScript で構築された、
+					モダンなWebアプリケーションのデモサイトです。
 				</p>
-			</div>
-			<p className="read-the-docs">
-				Click on the Vite and React logos to learn more
-			</p>
+			</section>
+
+			<section className={styles.about}>
+				<h2 className={styles.aboutTitle}>Powered by</h2>
+				<div className={styles.sponsors}>
+					<a
+						href="https://github.com"
+						target="_blank"
+						rel="noopener"
+						className={styles.sponsorCard}
+					>
+						<GitHubLogo />
+						<div className={styles.sponsorInfo}>
+							<h3 className={styles.sponsorName}>GitHub</h3>
+							<p className={styles.sponsorDescription}>
+								世界最大の開発者プラットフォーム。
+								コードのホスティング、バージョン管理、CI/CD、GitHub
+								Pagesによる静的サイトホスティングを提供。
+							</p>
+						</div>
+					</a>
+					<a
+						href="https://microsoft.com"
+						target="_blank"
+						rel="noopener"
+						className={styles.sponsorCard}
+					>
+						<MicrosoftLogo />
+						<div className={styles.sponsorInfo}>
+							<h3 className={styles.sponsorName}>Microsoft</h3>
+							<p className={styles.sponsorDescription}>
+								GitHubの親会社として、開発者エコシステムを支援。 VS
+								Code、TypeScript、Azure など開発者向けツールを提供。
+							</p>
+						</div>
+					</a>
+				</div>
+			</section>
+
+			<section className={styles.features}>
+				<h2 className={styles.featuresTitle}>Tech Stack</h2>
+				<div className={styles.grid}>
+					{features.map((feature) => (
+						<article key={feature.title} className={styles.card}>
+							<div className={styles.cardIcon}>{feature.icon}</div>
+							<h3 className={styles.cardTitle}>{feature.title}</h3>
+							<p className={styles.cardDescription}>{feature.description}</p>
+						</article>
+					))}
+				</div>
+			</section>
+
+			<footer className={styles.footer}>
+				<p>
+					Built with ❤️ using{" "}
+					<a
+						href="https://github.com"
+						target="_blank"
+						rel="noopener"
+						className={styles.footerLink}
+					>
+						GitHub Pages
+					</a>
+				</p>
+			</footer>
 		</>
 	);
 }

@@ -54,15 +54,12 @@ function App() {
 						rel="noopener"
 						className={styles.sponsorCard}
 					>
-						<div className={styles.sponsorIcon}>🐙</div>
-						<div className={styles.sponsorInfo}>
-							<h3 className={styles.sponsorName}>GitHub</h3>
-							<p className={styles.sponsorDescription}>
-								世界最大の開発者プラットフォーム。
-								コードのホスティング、バージョン管理、CI/CD、GitHub
-								Pagesによる静的サイトホスティングを提供。
-							</p>
-						</div>
+						<h3 className={styles.sponsorName}>GitHub</h3>
+						<p className={styles.sponsorDescription}>
+							世界最大の開発者プラットフォーム。
+							コードのホスティング、バージョン管理、CI/CD、GitHub
+							Pagesによる静的サイトホスティングを提供。
+						</p>
 					</a>
 					<a
 						href="https://microsoft.com"
@@ -70,14 +67,11 @@ function App() {
 						rel="noopener"
 						className={styles.sponsorCard}
 					>
-						<div className={styles.sponsorIcon}>🪟</div>
-						<div className={styles.sponsorInfo}>
-							<h3 className={styles.sponsorName}>Microsoft</h3>
-							<p className={styles.sponsorDescription}>
-								GitHubの親会社として、開発者エコシステムを支援。 VS
-								Code、TypeScript、Azure など開発者向けツールを提供。
-							</p>
-						</div>
+						<h3 className={styles.sponsorName}>Microsoft</h3>
+						<p className={styles.sponsorDescription}>
+							GitHubの親会社として、開発者エコシステムを支援。 VS
+							Code、TypeScript、Azure など開発者向けツールを提供。
+						</p>
 					</a>
 				</div>
 			</section>

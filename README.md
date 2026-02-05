@@ -40,17 +40,3 @@ pnpm run lint
 # フォーマット
 pnpm run format
 ```
-
-## License
-
-MIT
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```

@@ -73,18 +73,6 @@ function App() {
 							Code、TypeScript、Azure など開発者向けツールを提供。
 						</p>
 					</a>
-					<a
-						href="https://github.com/features/copilot"
-						target="_blank"
-						rel="noopener"
-						className={styles.sponsorCard}
-					>
-						<h3 className={styles.sponsorName}>GitHub Copilot</h3>
-						<p className={styles.sponsorDescription}>
-							AIペアプログラマー。コードの自動補完、チャット、
-							コードレビューで開発者の生産性を向上。
-						</p>
-					</a>
 				</div>
 			</section>
 

@@ -1,0 +1,124 @@
+name: CD (main)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  # ────────────────────────────────────────
+  # Job 1: Build
+  # ────────────────────────────────────────
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install devbox
+        uses: jetify-com/devbox-install-action@v0.14.0
+
+      - name: Install dependencies
+        run: devbox run -- pnpm install
+
+      - name: Build
+        run: devbox run -- pnpm run build
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist
+
+  # ────────────────────────────────────────
+  # Job 2: Deploy
+  # ────────────────────────────────────────
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    outputs:
+      page_url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+  # ────────────────────────────────────────
+  # Job 3: System Test (Playwright)
+  # ────────────────────────────────────────
+  system-test:
+    runs-on: ubuntu-latest
+    needs: deploy
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install devbox
+        uses: jetify-com/devbox-install-action@v0.14.0
+
+      - name: Install dependencies
+        run: devbox run -- pnpm install
+
+      - name: Install Playwright browsers
+        run: devbox run -- pnpm exec playwright install --with-deps chromium
+
+      - name: Run system tests against deployed site
+        run: devbox run -- pnpm run test:system
+        env:
+          BASE_URL: ${{ needs.deploy.outputs.page_url }}
+
+      - name: Upload Playwright report
+        uses: actions/upload-artifact@v4
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report
+          retention-days: 7
+
+  # ────────────────────────────────────────
+  # Job 4: Notification (Summary)
+  # ────────────────────────────────────────
+  notification:
+    runs-on: ubuntu-latest
+    needs: [build, deploy, system-test]
+    if: always()
+    steps:
+      - name: CD Result Summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const jobs = ${{ toJSON(needs) }};
+            const results = Object.entries(jobs).map(([name, job]) => {
+              const icon = job.result === 'success' ? '✅' : job.result === 'skipped' ? '⏭️' : '❌';
+              return `| ${name} | ${icon} ${job.result} |`;
+            });
+
+            const summary = [
+              '## CD Pipeline Results',
+              '',
+              '| Job | Status |',
+              '|-----|--------|',
+              ...results,
+              '',
+              `**Overall**: ${Object.values(jobs).every(j => j.result === 'success') ? '✅ All checks passed' : '❌ Some checks failed'}`,
+            ].join('\n');
+
+            await core.summary.addRaw(summary).write();
+
+      - name: Fail if any job failed
+        if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
+        run: exit 1

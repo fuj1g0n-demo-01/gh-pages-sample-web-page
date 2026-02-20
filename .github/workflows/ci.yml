@@ -1,0 +1,124 @@
+name: CI
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  # ────────────────────────────────────────
+  # Job 1: Build
+  # ────────────────────────────────────────
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install devbox
+        uses: jetify-com/devbox-install-action@v0.14.0
+
+      - name: Install dependencies
+        run: devbox run -- pnpm install
+
+      - name: Build
+        run: devbox run -- pnpm run build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+          retention-days: 1
+
+  # ────────────────────────────────────────
+  # Job 2: Lint
+  # ────────────────────────────────────────
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install devbox
+        uses: jetify-com/devbox-install-action@v0.14.0
+
+      - name: Install dependencies
+        run: devbox run -- pnpm install
+
+      - name: Lint
+        run: devbox run -- pnpm run lint
+
+  # ────────────────────────────────────────
+  # Job 3: Unit Test
+  # ────────────────────────────────────────
+  unit-test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install devbox
+        uses: jetify-com/devbox-install-action@v0.14.0
+
+      - name: Install dependencies
+        run: devbox run -- pnpm install
+
+      - name: Run unit tests
+        run: devbox run -- pnpm run test:unit
+
+  # ────────────────────────────────────────
+  # Job 4: Integration Test (class間結合テスト)
+  # ────────────────────────────────────────
+  integration-test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install devbox
+        uses: jetify-com/devbox-install-action@v0.14.0
+
+      - name: Install dependencies
+        run: devbox run -- pnpm install
+
+      - name: Run integration tests
+        run: devbox run -- pnpm run test:integration
+
+  # ────────────────────────────────────────
+  # Job 5: Notification (Summary)
+  # ────────────────────────────────────────
+  notification:
+    runs-on: ubuntu-latest
+    needs: [build, lint, unit-test, integration-test]
+    if: always()
+    steps:
+      - name: CI Result Summary
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const jobs = ${{ toJSON(needs) }};
+            const results = Object.entries(jobs).map(([name, job]) => {
+              const icon = job.result === 'success' ? '✅' : job.result === 'skipped' ? '⏭️' : '❌';
+              return `| ${name} | ${icon} ${job.result} |`;
+            });
+
+            const summary = [
+              '## CI Pipeline Results',
+              '',
+              '| Job | Status |',
+              '|-----|--------|',
+              ...results,
+              '',
+              `**Overall**: ${Object.values(jobs).every(j => j.result === 'success') ? '✅ All checks passed' : '❌ Some checks failed'}`,
+            ].join('\n');
+
+            await core.summary.addRaw(summary).write();
+
+      - name: Fail if any job failed
+        if: ${{ contains(needs.*.result, 'failure') || contains(needs.*.result, 'cancelled') }}
+        run: exit 1

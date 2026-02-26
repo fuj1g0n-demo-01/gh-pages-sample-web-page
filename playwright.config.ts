@@ -1,5 +1,8 @@
 import { defineConfig, devices } from "@playwright/test";
 
+const defaultBaseUrl = "http://localhost:4173/gh-pages-sample-web-page/";
+const baseURL = (process.env.BASE_URL || defaultBaseUrl).replace(/\/?$/, "/");
+
 export default defineConfig({
 	testDir: "./system-test",
 	fullyParallel: true,
@@ -8,7 +11,7 @@ export default defineConfig({
 	workers: process.env.CI ? 1 : undefined,
 	reporter: "html",
 	use: {
-		baseURL: process.env.BASE_URL || "http://localhost:4173",
+		baseURL,
 		trace: "on-first-retry",
 	},
 	projects: [
@@ -21,7 +24,7 @@ export default defineConfig({
 	...(!process.env.BASE_URL && {
 		webServer: {
 			command: "pnpm run preview",
-			url: "http://localhost:4173",
+			url: defaultBaseUrl,
 			reuseExistingServer: !process.env.CI,
 		},
 	}),

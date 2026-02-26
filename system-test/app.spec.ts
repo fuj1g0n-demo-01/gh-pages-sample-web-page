@@ -23,15 +23,20 @@ test.describe("システムテスト（デプロイ済みアプリ）", () => {
 		await page.goto("./");
 
 		// スポンサーカード内の GitHub リンク（heading で絞り込み）
-		const githubSponsor = page
-			.locator("a", { has: page.getByRole("heading", { name: "GitHub", exact: true }) });
+		const githubSponsor = page.locator("a", {
+			has: page.getByRole("heading", { name: "GitHub", exact: true }),
+		});
 		await expect(githubSponsor).toHaveAttribute("href", "https://github.com");
 		await expect(githubSponsor).toHaveAttribute("target", "_blank");
 
 		// スポンサーカード内の Microsoft リンク
-		const microsoftSponsor = page
-			.locator("a", { has: page.getByRole("heading", { name: "Microsoft", exact: true }) });
-		await expect(microsoftSponsor).toHaveAttribute("href", "https://microsoft.com");
+		const microsoftSponsor = page.locator("a", {
+			has: page.getByRole("heading", { name: "Microsoft", exact: true }),
+		});
+		await expect(microsoftSponsor).toHaveAttribute(
+			"href",
+			"https://microsoft.com",
+		);
 		await expect(microsoftSponsor).toHaveAttribute("target", "_blank");
 	});
 

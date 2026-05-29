@@ -1,4 +1,5 @@
 import styles from "./App.module.css";
+import SearchResult from "./SearchResult";
 
 const features = [
 	{
@@ -88,6 +89,8 @@ function App() {
 					))}
 				</div>
 			</section>
+
+			<SearchResult />
 
 			<footer className={styles.footer}>
 				<p>

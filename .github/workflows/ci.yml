@@ -17,14 +17,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install devbox
-        uses: jetify-com/devbox-install-action@v0.14.0
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
 
       - name: Install dependencies
-        run: devbox run -- pnpm install
+        run: nix develop -c pnpm install
 
       - name: Build
-        run: devbox run -- pnpm run build
+        run: nix develop -c pnpm run build
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -42,14 +42,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install devbox
-        uses: jetify-com/devbox-install-action@v0.14.0
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
 
       - name: Install dependencies
-        run: devbox run -- pnpm install
+        run: nix develop -c pnpm install
 
       - name: Lint
-        run: devbox run -- pnpm run lint
+        run: nix develop -c pnpm run lint
 
   # ────────────────────────────────────────
   # Job 3: Unit Test
@@ -61,14 +61,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install devbox
-        uses: jetify-com/devbox-install-action@v0.14.0
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
 
       - name: Install dependencies
-        run: devbox run -- pnpm install
+        run: nix develop -c pnpm install
 
       - name: Run unit tests
-        run: devbox run -- pnpm run test:unit
+        run: nix develop -c pnpm run test:unit
 
   # ────────────────────────────────────────
   # Job 4: Integration Test (class間結合テスト)
@@ -80,14 +80,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install devbox
-        uses: jetify-com/devbox-install-action@v0.14.0
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
 
       - name: Install dependencies
-        run: devbox run -- pnpm install
+        run: nix develop -c pnpm install
 
       - name: Run integration tests
-        run: devbox run -- pnpm run test:integration
+        run: nix develop -c pnpm run test:integration
 
   # ────────────────────────────────────────
   # Job 5: Notification (Summary)

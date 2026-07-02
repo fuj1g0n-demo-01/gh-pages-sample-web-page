@@ -24,14 +24,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install devbox
-        uses: jetify-com/devbox-install-action@v0.14.0
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
 
       - name: Install dependencies
-        run: devbox run -- pnpm install
+        run: nix develop -c pnpm install
 
       - name: Build
-        run: devbox run -- pnpm run build
+        run: nix develop -c pnpm run build
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
@@ -67,17 +67,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install devbox
-        uses: jetify-com/devbox-install-action@v0.14.0
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v22
 
       - name: Install dependencies
-        run: devbox run -- pnpm install
+        run: nix develop -c pnpm install
 
       - name: Install Playwright browsers
-        run: devbox run -- pnpm exec playwright install --with-deps chromium
+        run: nix develop -c pnpm exec playwright install --with-deps chromium
 
       - name: Run system tests against deployed site
-        run: devbox run -- pnpm run test:system
+        run: nix develop -c pnpm run test:system
         env:
           BASE_URL: ${{ needs.deploy.outputs.page_url }}
 

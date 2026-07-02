@@ -15,7 +15,7 @@
 | Linter/Formatter | Biome | latest |
 | デプロイ | GitHub Actions | - |
 | ホスティング | GitHub Pages | - |
-| 開発環境 | devbox | latest |
+| 開発環境 | Nix (flake) | - |
 
 ## 設定
 
@@ -24,7 +24,7 @@
 
 ## 依存関係管理
 
-- すべてのツール依存関係は devbox で管理される必要があります
+- すべてのツール依存関係は Nix flake（`flake.nix`）で管理される必要があります
 
 ## npm scripts
 

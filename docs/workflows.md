@@ -239,7 +239,7 @@ flowchart LR
 
 | 項目 | 技術 |
 |------|------|
-| ランタイム管理 | devbox (jetify-com/devbox-install-action@v0.14.0) |
+| ランタイム管理 | Nix flake (DeterminateSystems/nix-installer-action@v22) |
 | パッケージマネージャー | pnpm |
 | ビルド | Vite + TypeScript |
 | デプロイ | actions/deploy-pages@v4 |

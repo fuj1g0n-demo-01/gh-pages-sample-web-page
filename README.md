@@ -18,15 +18,15 @@ GitHub Pages にデプロイされたモダンな Web アプリケーション�
 
 ## Prerequisites
 
-本リポジトリに必要な依存関係（Node.js、pnpm など）はすべて [devbox](https://www.jetify.com/devbox/) で管理されています。
+本リポジトリに必要な依存関係（Node.js、pnpm など）はすべて [Nix](https://nixos.org/) の flake（`flake.nix`）で管理されています。
 
-devbox をインストールするには、[公式インストールガイド](https://www.jetify.com/docs/devbox/installing_devbox/)を参照してください。
+Nix をインストールするには、[Determinate Nix Installer](https://github.com/DeterminateSystems/nix-installer) の利用を推奨します。
 
 ## Development
 
 ```bash
-# devbox 環境を起動
-devbox shell
+# Nix 開発シェルを起動
+nix develop
 
 # 依存関係をインストール
 pnpm install

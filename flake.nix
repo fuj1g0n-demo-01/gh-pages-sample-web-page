@@ -21,8 +21,12 @@
         default = pkgs.mkShell {
           packages = with pkgs; [
             nodejs_22
+            playwright-driver.browsers
             pnpm
           ];
+
+          PLAYWRIGHT_BROWSERS_PATH = "${pkgs.playwright-driver.browsers}";
+          PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD = "1";
         };
       });
 

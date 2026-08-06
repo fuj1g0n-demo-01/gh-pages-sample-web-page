@@ -28,7 +28,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v22
 
       - name: Install dependencies
-        run: nix develop -c pnpm install
+        run: nix develop -c pnpm install --frozen-lockfile
 
       - name: Build
         run: nix develop -c pnpm run build
@@ -71,10 +71,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v22
 
       - name: Install dependencies
-        run: nix develop -c pnpm install
-
-      - name: Install Playwright browsers
-        run: nix develop -c pnpm exec playwright install --with-deps chromium
+        run: nix develop -c pnpm install --frozen-lockfile
 
       - name: Run system tests against deployed site
         run: nix develop -c pnpm run test:system

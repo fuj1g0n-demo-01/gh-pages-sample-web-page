@@ -4,7 +4,7 @@ GitHub Pages にデプロイされたモダンな Web アプリケーション�
 
 ## Demo
 
-**https://fuj1g0n-demo-org-01.github.io/gh-pages-sample-web-page/**
+**https://fuj1g0n-demo-01.github.io/gh-pages-sample-web-page/**
 
 ## Tech Stack
 

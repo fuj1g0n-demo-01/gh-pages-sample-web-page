@@ -21,7 +21,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v22
 
       - name: Install dependencies
-        run: nix develop -c pnpm install
+        run: nix develop -c pnpm install --frozen-lockfile
 
       - name: Build
         run: nix develop -c pnpm run build
@@ -46,7 +46,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v22
 
       - name: Install dependencies
-        run: nix develop -c pnpm install
+        run: nix develop -c pnpm install --frozen-lockfile
 
       - name: Lint
         run: nix develop -c pnpm run lint
@@ -65,7 +65,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v22
 
       - name: Install dependencies
-        run: nix develop -c pnpm install
+        run: nix develop -c pnpm install --frozen-lockfile
 
       - name: Run unit tests
         run: nix develop -c pnpm run test:unit
@@ -84,7 +84,7 @@ jobs:
         uses: DeterminateSystems/nix-installer-action@v22
 
       - name: Install dependencies
-        run: nix develop -c pnpm install
+        run: nix develop -c pnpm install --frozen-lockfile
 
       - name: Run integration tests
         run: nix develop -c pnpm run test:integration

@@ -164,7 +164,7 @@ flowchart TD
 | Job | 依存 | 条件 | 説明 |
 |-----|------|------|------|
 | **build** | — | — | TypeScript コンパイル + Vite ビルド。Pages artifact をアップロード |
-| **deploy** | build | — | `production` environment に GitHub Pages デプロイ |
+| **deploy** | build | — | `github-pages` environment に GitHub Pages デプロイ |
 | **system-test** | deploy | — | デプロイ済みサイトに対して Playwright でシステムテスト実行 |
 | **rollback** | 全 Job | `failure()` | Release を Draft 状態に戻す。失敗原因の調査・修正後に再 Publish 可能 |
 | **notification** | 全 Job | `always()` | Job Summary にタグ名付きの結果サマリーを出力 |
@@ -196,10 +196,9 @@ CD (main) と同じ `pages` グループを共有し、同時デプロイを防�
 
 | Environment | 使用 Workflow | 説明 |
 |-------------|-------------|------|
-| `github-pages` | CD (main) | main push 時のデプロイ先。GitHub Pages のデフォルト environment |
-| `production` | CD (release) | Release 時のデプロイ先。Protection rule（承認者要求等）を設定可能 |
+| `github-pages` | CD (main) / CD (release) | GitHub Pages のデプロイ先。Protection rule（承認者要求等）を設定可能 |
 
-> **注意:** `production` environment の protection rule はリポジトリの **Settings > Environments** から別途設定してください。
+> **注意:** `github-pages` environment の protection rule はリポジトリの **Settings > Environments** から別途設定してください。
 
 両 environment のデプロイ先 URL は同一の GitHub Pages サイトです（1 リポジトリ = 1 Pages サイトの制約）。
 

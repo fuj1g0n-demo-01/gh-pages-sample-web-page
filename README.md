@@ -22,12 +22,17 @@ GitHub Pages にデプロイされたモダンな Web アプリケーション�
 
 Nix をインストールするには、[Determinate Nix Installer](https://github.com/DeterminateSystems/nix-installer) の利用を推奨します。
 
+開発シェルの自動読み込みには [direnv](https://direnv.net/) と [nix-direnv](https://github.com/nix-community/nix-direnv) を使用します。
+
+初回のみ、リポジトリのルートで設定を許可してください。
+
+```bash
+direnv allow
+```
+
 ## Development
 
 ```bash
-# Nix 開発シェルを起動
-nix develop
-
 # 依存関係をインストール
 pnpm install
 

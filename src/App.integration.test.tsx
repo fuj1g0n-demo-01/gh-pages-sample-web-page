@@ -45,7 +45,7 @@ describe("Integration: コンポーネント間結合テスト", () => {
 		expect(aboutSection).toBeDefined();
 
 		const sponsorLinks = aboutSection.querySelectorAll("a");
-		expect(sponsorLinks).toHaveLength(2);
+		expect(sponsorLinks).toHaveLength(3);
 
 		for (const link of sponsorLinks) {
 			expect(link).toHaveAttribute("target", "_blank");

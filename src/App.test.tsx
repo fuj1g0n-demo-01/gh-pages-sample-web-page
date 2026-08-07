@@ -52,5 +52,18 @@ describe("App", () => {
 		expect(github.length).toBeGreaterThanOrEqual(1);
 		const microsoft = screen.getAllByRole("heading", { name: "Microsoft" });
 		expect(microsoft.length).toBeGreaterThanOrEqual(1);
+		const copilot = screen.getAllByRole("heading", { name: "GitHub Copilot" });
+		expect(copilot.length).toBeGreaterThanOrEqual(1);
+	});
+
+	it("Powered by セクションに GitHub Copilot のリンクが存在する", () => {
+		render(<App />);
+		const links = screen.getAllByRole("link", { name: /GitHub Copilot/i });
+		expect(links.length).toBeGreaterThanOrEqual(1);
+		expect(links[0]).toHaveAttribute(
+			"href",
+			"https://github.com/features/copilot",
+		);
+		expect(links[0]).toHaveAttribute("target", "_blank");
 	});
 });

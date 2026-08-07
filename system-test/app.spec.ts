@@ -38,6 +38,16 @@ test.describe("システムテスト（デプロイ済みアプリ）", () => {
 			"https://microsoft.com",
 		);
 		await expect(microsoftSponsor).toHaveAttribute("target", "_blank");
+
+		// スポンサーカード内の GitHub Copilot リンク
+		const copilotSponsor = page.locator("a", {
+			has: page.getByRole("heading", { name: "GitHub Copilot", exact: true }),
+		});
+		await expect(copilotSponsor).toHaveAttribute(
+			"href",
+			"https://github.com/features/copilot",
+		);
+		await expect(copilotSponsor).toHaveAttribute("target", "_blank");
 	});
 
 	test("ページのレイアウトが崩れていない", async ({ page }) => {
